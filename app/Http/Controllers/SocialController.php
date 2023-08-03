@@ -14,6 +14,7 @@ class SocialController extends Controller
 
     public function callback($service)
     {
-        return $user = socialite::with($service)->user();
+      return $user = socialite::with($service)->user();
+//        $user = $service->createOrGetUser(Socialite::driver('facebook')->stateless()->user());
     }
 }

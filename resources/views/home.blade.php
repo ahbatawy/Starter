@@ -20,4 +20,9 @@
         </div>
     </div>
 </div>
+<div>
+    <a href="{{ url('/send') }}">Send</a>
+
+</div>
+
 @endsection

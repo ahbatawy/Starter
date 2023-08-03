@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-
-
+use App\Mail\TestMail;
+use App\Http\Controllers\CrudController;
+use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +17,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ],
+    function(){
+        Route::get('/', function () {
+            return view('welcome');
+        });
 
-Auth::routes(['verify'=>true]);
+        Auth::routes(['verify'=>true]);
 
-Route::get('redirect/{service}','App\Http\Controllers\SocialController@redirect');
-Route::get('callback/{service}','App\Http\Controllers\SocialController@callback');
+        Route::get('redirect/{service}','App\Http\Controllers\SocialController@redirect');
+        Route::get('callback/{service}','App\Http\Controllers\SocialController@callback');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-    ->name('home')->middleware('verified');
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+            ->name('home')->middleware(['auth','verified']);
+
+        Route::get('/send', function(){
+            Mail::to('arabeagle345@gmail.com')
+                ->send(new TestMail());
+            return response('Sending Completed');
+        });
+
+        Route::resource('offers', CrudController::class);
+
+    });
+
+
+
+
+
+
+
+
