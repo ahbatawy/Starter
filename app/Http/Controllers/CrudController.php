@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OfferRequest;
+use App\Http\Requests\CreateOfferRequest;
+use App\Http\Requests\UpdateOfferRequest;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,7 +29,7 @@ class CrudController extends Controller
     }
 
 
-    public function store(OfferRequest $request)
+    public function store(CreateOfferRequest $request)
     {
 
         //validate data before insert to database
@@ -79,15 +80,42 @@ class CrudController extends Controller
     }
 
 
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $offer=Offer::find($id);
+        if (!$offer)
+            return redirect()-> back();
+
+        $offer = Offer::select
+        ('id','name_ar','name_en','details_ar','details_en','price')->find($id);
+
+        return view('offers.edit', compact('offer'));
+
     }
 
 
-    public function update(Request $request, string $id)
+    public function update(UpdateOfferRequest $request, $id)
     {
-        //
+
+        $offer = Offer::find($id);
+        if (!$offer)
+            return redirect()->back();
+
+        //update data
+
+        $offer->update($request->all());
+
+
+//        $offer::update([
+//            'name_ar' => $request->name_ar,
+//            'name_en' => $request->name_en,
+//            'price' =>  $request->price,
+//            'details_ar' => $request->details_ar,
+//            'details_en' => $request->details_en,
+//        ]);
+
+        return redirect()->back()->with(['success' => __('messages.Offer Had been Updated')]);
+
     }
 
 

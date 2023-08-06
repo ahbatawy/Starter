@@ -15,6 +15,7 @@ return [
     "Add your offer" => 'Add your New Offer ',
     "Offer Price"  => 'Offer Price',
     "Save Offer" => 'Save',
+    "Update Offer" => 'Update',
     "Offer Name" => 'Offer Name',
     "Offer Details" => 'Offer Details',
     "Offer Name_ar" => 'Arabic Offer Name',
@@ -23,4 +24,8 @@ return [
     "Offer Details_en" => 'English Offer Details',
     "Offer Search" => 'Search',
     "Offer Had been Added" => "Offer Had been Added",
+    "Offer Had been Updated" => 'Offer Had been Updated',
+    "Operations" => "Operations",
+    "Edit" => "Edit",
+    "Edit your offer" => 'Edit your Old Offer',
 ];

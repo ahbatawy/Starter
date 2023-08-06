@@ -41,7 +41,7 @@ Route::group(
             return response('Sending Completed');
         });
 
-        Route::resource('offers', CrudController::class);
+        Route::resource('offer', CrudController::class);
 
     });
 

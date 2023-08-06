@@ -26,7 +26,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/">Navbar</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
@@ -58,7 +58,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{route('offers.store')}}">
+        <form method="POST" action="{{route('offer.store')}}">
             @csrf
             <div class="mb-3 mt-4">
                 <label class="flex justify-center" for="name_ar">{{__('messages.Offer Name_ar')}}</label>

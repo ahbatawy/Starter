@@ -45,30 +45,79 @@
     </div>
 </nav>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">{{__('messages.Offer Name')}}</th>
-        <th scope="col">{{__('messages.Offer Price')}}</th>
-        <th scope="col">{{__('messages.Offer Details')}}</th>
-        <th scope="col">{{__('messages.Operations')}}</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class=" relative flex min-h-screen bg-gray-100  sm:items-center py-4 sm:pt-0 ">
+    <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-    @foreach($offers as $offer)
-    <tr>
-        <th scope="row">{{$offer->id}}</th>
-        <td>{{$offer->name}}</td>
-        <td>{{$offer->price}}</td>
-        <td>{{$offer->details}}</td>
-        <td><a href="{{route('offer.edit',$offer->id)}}" class="btn btn-success">{{__('messages.Edit')}}</a></td>
-    </tr>
-    @endforeach
+        <div class="flex justify-center mb-5">
+            <h1>{{__('messages.Edit your offer')}}</h1>
+        </div>
 
-    </tbody>
-</table>
+        @if(Session::has('success'))
+            <div class="flex justify-center alert alert-success" role="alert">
+                {{ Session::get('success') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{route('offer.update',$offer->id)}}">
+            @csrf
+            @method("PUT")
+            <div class="mb-3 mt-4">
+                <label class="flex justify-center" for="name_ar">{{__('messages.Offer Name_ar')}}</label>
+                <input type="text" class="form-control" name="name_ar" value="{{$offer->name_ar}}" placeholder="{{__('messages.Offer Name_ar')}}">
+                @error('name_ar')
+                <div class="flex justify-center form-error">
+                    <small class="form-text text-danger">{{$message}}</small>
+                </div>
+                @enderror
+            </div>
+
+            <div class="mb-3 mt-4">
+                <label class="flex justify-center" for="name_en">{{__('messages.Offer Name_en')}}</label>
+                <input type="text" class="form-control" name="name_en" value="{{$offer->name_en}}" placeholder="{{__('messages.Offer Name_en')}}">
+                @error('name_en')
+                <div class="flex justify-center form-error">
+                    <small class="form-text text-danger">{{$message}}</small>
+                </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="flex justify-center" for="price">{{__('messages.Offer Price')}}</label>
+                <input type="text" class="form-control" name="price" value="{{$offer->price}}" placeholder="{{__('messages.Offer Price')}}">
+                @error('price')
+                <div class="flex justify-center form-error">
+                    <small class="form-text text-danger">{{$message}}</small>
+                </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="flex justify-center" for="details_ar">{{__('messages.Offer Details_ar')}}</label>
+                <input type="text" class="form-control" name="details_ar" value="{{$offer->details_ar}}" placeholder="{{__('messages.Offer Details_ar')}}">
+                @error('details_ar')
+                <div class="flex justify-center form-error">
+                    <small class="form-text text-danger">{{$message}}</small>
+                </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="flex justify-center" for="details_en">{{__('messages.Offer Details_en')}}</label>
+                <input type="text" class="form-control" name="details_en" value="{{$offer->details_en}}" placeholder="{{__('messages.Offer Details_en')}}">
+                @error('details_en')
+                <div class="flex justify-center form-error">
+                    <small class="form-text text-danger">{{$message}}</small>
+                </div>
+                @enderror
+            </div>
+
+            <div class="col d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">{{__('messages.Update Offer')}}</button>
+            </div>
+        </form>
+
+    </div>
+</div>
 
 </body>
 </html>
